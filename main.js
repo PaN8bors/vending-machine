@@ -28,11 +28,14 @@ class VendingMachine {
             throw new FundsError('Insufficient funds');
         }
     }
+    getPrice() {
+        return this.items.get(item)
+    }
 }
 
 class App {
     static main() {
-        const account = new BankAccount(1);
+        const account = new BankAccount(200);
         const machine = new VendingMachine();
 
         try {
@@ -42,7 +45,7 @@ class App {
                 console.log('Item does not exist');
             }
             if (err instanceof FundsError) {
-                console.log('Insufficient funds');
+                console.log('Insufficient funds in your account');
             }
         }
     }
