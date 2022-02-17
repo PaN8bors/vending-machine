@@ -1,3 +1,5 @@
+import input from 'input';
+
 class ItemNotFound extends Error {}
 
 class FundsError extends Error {}
@@ -34,15 +36,17 @@ class VendingMachine {
 }
 
 class App {
-    static main() {
-        const account = new BankAccount(200);
+    static async main() {
+        const urBal = await input.text('What is your account balance?')
+        const urChoice = await input.text('What would you like?')
+        const account = new BankAccount(urBal);
         const machine = new VendingMachine();
 
         try {
-        machine.buy(account, 'Cheetos');
+            machine.buy(account, urChoice);
         } catch (err) {
             if (err instanceof ItemNotFound) {
-                console.log('Item does not exist');
+                console.log(`${urChoice} does not exist`);
             }
             if (err instanceof FundsError) {
                 console.log('Insufficient funds in your account');
@@ -52,3 +56,6 @@ class App {
 }
 
 App.main();
+
+
+//const price = machine.getPrice('Cheetos');
