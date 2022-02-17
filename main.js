@@ -24,8 +24,8 @@ class VendingMachine {
         }
         
         if (price <= account.balance) {
-            account.balance -= price;
-            console.log(`${item} purchased`);
+            const remainder = account.balance -= price;
+            console.log(`${item} purchased.  You have ${remainder} left.`);
         } else {
             throw new FundsError('Insufficient funds');
         }
@@ -39,7 +39,7 @@ class App {
     static async main() {
         const urBal = await input.text('What is your account balance?')
         const urChoice = await input.text('What would you like?')
-        const account = new BankAccount(urBal);
+        const account = new BankAccount(Number(urBal));
         const machine = new VendingMachine();
 
         try {
